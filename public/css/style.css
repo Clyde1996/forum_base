@@ -13,8 +13,8 @@
 
  .searchBox {
     position: absolute;
-    top: 5%;
-    left: 50%;
+    top: 1%;
+    left: 80%;
     background: #2f3640;
     height: 40px;
     border-radius: 40px;
@@ -95,5 +95,5 @@ nav {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 150px;
+    width: 250px;
 }

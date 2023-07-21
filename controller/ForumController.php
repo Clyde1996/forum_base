@@ -67,7 +67,36 @@
 
         }
 
+        public function formTopic(){
+
+            return[
+                "view" => VIEW_DIR."forum/addOrUpdateTopic.php",
+             
+            ];
+        }
+
+        public function addTopic(){
+            $topicManager = new TopicManager();
+            $session = new Session();
+
+            $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS); // flite qui protege contre les failles xss
+
+            date_default_timezone_set('Europe/Paris');
+            $creationdate = date('Y-m-d H:i:s');
+
+            $topicManager->add(['title'=> $title, 'creationdate'=> $creationdate]);
+            return[
+                "view"=>VIEW_DIR."forum/listTopics.php",
+                $session->addFlash('succes', 'Ajouté avec succès'),
+                "data" => [
+                    "topics"=> $topicManager->findAll(["title", "ASC"])
+                ]
+            ];
+        }
+
         
+
+
         /*List Categories*/ 
 
         public function listCategories(){
@@ -88,7 +117,7 @@
                 ];
         }
 
-        public function detailCategory($id){   // le function fait le lien avec le view qui s'appelle detailCategory
+        public function detailCategory($id){   // le fonction fait le lien avec le view qui s'appelle detailCategory
             $categoryManager = new CategoryManager();
             $topicManager = new TopicManager();
 
@@ -103,9 +132,18 @@
             ];
         }
 
-        public function addCategory()
+        public function formCategory(){
+
+            return[
+                "view" => VIEW_DIR."forum/addOrUpdateCategory.php",
+             
+            ];
+        }
+
+        public function addCategory()  // Fonction pour ajouter une catégorie au form category 
         {
             $categoryManager = new CategoryManager();
+            $session = new Session();  
 
             $nom = filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_FULL_SPECIAL_CHARS); // pour se proteger des hackeurs - des failles xss
 
@@ -113,6 +151,7 @@
             $categoryManager->add(['nom' => $nom]);
             return[
                 "view" => VIEW_DIR."forum/listCategories.php",
+                $session->addFlash('success',"Ajouté avec succès"), // Instancier pour ajouter une notification
                 "data" => [
                     "categories" => $categoryManager->findAll(["nom", "ASC"])   // quand on ajoute un categorie sa retourne dans le liste des categories
                 ]
