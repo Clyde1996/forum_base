@@ -14,11 +14,17 @@ foreach($topics as $topic ){
     <p><?=$topic->getCreationdate()?></p>
     <p>Catégorie : <?=$topic->getCategory()->getNom()?></p>
     <p>Auteur : <?=$topic->getUser()->getUsername()?></p>
+
+    <a href="index.php?ctrl=forum&action=deleteTopic&id=<?=$topic->getId()?>" method="post"> <!-- le form que on a cree dans le forum controller avec le function qui est lie dans le addOrUpdatePost.php  --> 
+    <i class="fa-sharp fa-solid fa-circle-minus"></i>
+    </a>
+
     <?php
 }
 ?>
 
-<a href="index.php?ctrl=forum&action=formTopic"> <!--Form topic c'est le plus qui permetre de ajouter un categorie-->
+<!--Form topic c'est le plus qui permetre de ajouter un categorie-->
+<a href="index.php?ctrl=forum&action=formTopic"> 
     <i class="fa-sharp fa-solid fa-circle-plus fa-lg" style="color: #54626F;"></i>
 </a>
 
