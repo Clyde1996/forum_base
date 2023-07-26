@@ -94,6 +94,27 @@
             ];
         }
 
+        public function deleteTopic($id){
+            $topicManager = new TopicManager();
+            $session = new Session();    //pour ajouter une notification
+
+            
+
+            return[
+                "view"=>VIEW_DIR."forum/listTopics.php",
+                "data" => [
+                    $session->addFlash('success',"Supprimé avec succès"),// Afficher la notification
+                    $topicManager->delete($id),   // on a fait un requete pour delete sur manager et on peut utilise la 
+                    // "categories" =>  $topicManager->findAll(["title", "ASC"]) // title c'est le nom dans la base de donees
+                    "topics"=> $topicManager->findAll(["title", "ASC"])
+                    
+                ]
+            ];
+
+        }
+
+   
+
         
 
 
@@ -159,6 +180,22 @@
             ];
         }
 
+        public function deleteCategory($id){
+            $categoryManager = new CategoryManager();
+            $session = new Session();    //pour ajouter une notification
+
+            return[
+                "view"=>VIEW_DIR."forum/listCategories.php",
+                "data" => [
+                    $session->addFlash('success',"Supprimé avec succès"),// Afficher la notification
+                    $categoryManager->delete($id),
+                    "categories" => $categoryManager->findAll(["nom", "ASC"])
+                    
+                ]
+            ];
+
+        }
+
         
 
 
@@ -173,6 +210,9 @@
                 ]
             ];
         }
+
+
+        
 
         public function listPosts(){
             $postManager = new PostManager();
