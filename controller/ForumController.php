@@ -185,6 +185,77 @@
             ];
         }
 
+        // add post
+
+        public function addPost($id){   // c'est le lien addPost que on a ajouter dans le listTopics 
+            $postManager = new PostManager();
+            $topicManager = new TopicManager();
+
+            $texte = filter_input(INPUT_POST, 'texte', FILTER_SANITIZE_FULL_SPECIAL_CHARS); // flite qui protege contre les failles xss
+            
+            date_default_timezone_set('Europe/Paris');
+            $dateCreation = date('Y-m-d H:i:s');
+
+            $postManager->add(['texte'=> $texte, 'dateCreation'=> $dateCreation]);
+            return[
+                "view"=>VIEW_DIR."forum/detailTopic.php", // apres avoir ajouter le post on returne dans le detailTopic
+                "data" => [
+                    "posts"=> $postManager->findAll(["texte", "ASC"]),
+                    "topic"=>$topicManager->findOneById($id)
+                ]
+            ];
+        }
+
+
+         // Fonction pour supprimer une Catégorie 
+        public function deletePost($id){
+            $postManager = new PostManager();
+            $topicManager = new TopicManager();
+
+            $postManager->delete($id);
+
+          
+        }
+
+        // Fonction pour editer un Topic
+
+        public function updatePost($id){
+            $postManager = new PostManager();
+            $texte = filter_input(INPUT_POST, 'texte', FILTER_SANITIZE_SPECIAL_CHARS);
+
+
+            $postManager->edit(['texte' => $texte], $id); // on edit le texte par $id
+            
+
+            header("Location: index.php?ctrl=forum&action=listTopics"); // redirige vers un fois on fais la page on peut le rederiger
+            
+        }
+
+        // form add Post 
+
+        public function formPost(){ // c'est la form que on a cree dans le addOrUpdatePost, et ca s'appelle formPost!
+
+            return[
+                "view" => VIEW_DIR."forum/addPost.php",
+             
+            ];
+        }
+
+        public function updateformPost($id){ // c'est la form que on a cree dans le addOrUpdatePost, et ca s'appelle formPost!
+            $postManager = new postManager();
+            // $topicManager = new TopicManager();
+
+            return[
+                "view" => VIEW_DIR."forum/updatePost.php",
+                "data"=>['post'=>$postManager->findOneById($id)], 
+             
+            ];
+        }
+
+
+
+
+
      
 
         
