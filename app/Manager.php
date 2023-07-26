@@ -4,7 +4,7 @@
     abstract class Manager{
 
         protected function connect(){
-            DAO::connect();
+            DAO::connect(); // connecter a la base do donees 
         }
 
         /**
@@ -29,6 +29,7 @@
             );
         }
        
+        // function findOneById
         public function findOneById($id){
 
             $sql = "SELECT *
@@ -67,6 +68,7 @@
             }
         }
         
+        // function delete
         public function delete($id){
             $sql = "DELETE FROM ".$this->tableName."
                     WHERE id_".$this->tableName." = :id
@@ -74,6 +76,68 @@
 
             return DAO::delete($sql, ['id' => $id]); 
         }
+
+        // function update
+        // public function edit($id){
+        //     $sql = "Update" .$this->tableName."
+        //     Set id_".$this->tableName." = :id
+        //     ";
+            
+        // // }
+
+
+// fonction pour modifier 
+public function edit($data,$id= null){   // pas sur pour le $id = null 
+    //$keys = ['username' , 'password', 'email']
+    $keys = array_keys($data);
+    //$values = ['Squalli', 'dfsyfshfbzeifbqefbq', 'sql@gmail.com']
+    $values = array_values($data);
+    //"username,password,email"
+
+    $sql = "UPDATE ".$this->tableName."
+            SET  ".implode(',', $keys)."
+            =
+            '".implode("','",$values)."'
+            WHERE id_".$this->tableName."= :id ";
+
+            try{
+                return DAO::update($sql,["id" => $id]);
+            }
+            catch(\PDOException $e){
+                echo $e->getMessage();
+                die();
+            }
+}
+
+        // public function edit($data){
+        //     //$keys = ['username' , 'password', 'email']
+        //     $keys = array_keys($data);
+        //     //$values = ['Squalli', 'dfsyfshfbzeifbqefbq', 'sql@gmail.com']
+        //     $values = array_values($data);
+            
+        //     //"username,password,email"
+        //     $sql = "UPDATE ".$this->tableName."
+        //          SET id_".$this->tableName." = :id
+                    
+        //             (".implode(',', $keys).") 
+        //             VALUES
+        //             ('".implode("','",$values)."')"; //La fonction implode est utilisée pour rassembler les éléments d'un tableau en une seule chaîne de caractères
+        //             //"'Squalli', 'dfsyfshfbzeifbqefbq', 'sql@gmail.com'"
+        //     /*
+        //         INSERT INTO user (username,password,email) VALUES ('Squalli', 'dfsyfshfbzeifbqefbq', 'sql@gmail.com') 
+        //     */
+        //     try{
+        //         return DAO::insert($sql);
+        //     }
+        //     catch(\PDOException $e){
+        //         echo $e->getMessage();
+        //         die();
+        //     }
+        // }
+
+
+
+        
 
         private function generate($rows, $class){
             foreach($rows as $row){
