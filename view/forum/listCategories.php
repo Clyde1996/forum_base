@@ -19,6 +19,9 @@ foreach($categories as $category){
     <i class="fa-sharp fa-solid fa-circle-minus"></i>
     </a>
 
+
+
+
     <?php
     
     

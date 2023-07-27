@@ -196,6 +196,11 @@
 
         }
 
+        public function updateCategory($id){
+            $categoryManager = New CategoryManager();
+
+        }
+
         
 
 
@@ -281,7 +286,7 @@
             ];
         }
 
-        public function updateformPost($id){ // c'est la form que on a cree dans le addOrUpdatePost, et ca s'appelle formPost!
+        public function updateFormPost($id){ // c'est la form que on a cree dans le addOrUpdatePost, et ca s'appelle formPost!
             $postManager = new postManager();
             // $topicManager = new TopicManager();
 

@@ -22,7 +22,7 @@ foreach($posts	as $post){
 
 
     <!-- le form update topic -->
-    <a href="index.php?ctrl=forum&action=updateformPost&id=<?=$post->getId()?>">
+    <a href="index.php?ctrl=forum&action=updateFormPost&id=<?=$post->getId()?>">
     <i class="fa-regular fa-pen-to-square"></i>
     </a> 
 
