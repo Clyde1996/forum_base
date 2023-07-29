@@ -170,6 +170,22 @@ public function edit($data,$id= null){   // pas sur pour le $id = null
             return false;
         }
 
+
+        public function findUserByUsername($username) {
+            $sql = "SELECT *
+                    FROM ".$this->tableName." u
+                    WHERE u.username = :username";
+                    
+            return $this->getOneOrNullResult(DAO::select($sql, ['username' => $username], false), $this->className);
+        }
+
+        public function findUserByEmail($email) {
+            $sql = "SELECT *
+                    FROM ".$this->tableName." u
+                    WHERE u.email = :email";
+                    
+            return $this->getOneOrNullResult(DAO::select($sql, ['email' => $email], false), $this->className);
+        }
         
 
     
