@@ -9,7 +9,7 @@
     
     <h1>S'inscrire</h1>
     <form action="index.php?ctrl=security&action=register" method="POST">
-        <label for="pseudo">username</label>
+        <label for="pseudo">Username</label>
         <input type="text" name="username" id="username"></br>
 
         <label for="email">Email</label>

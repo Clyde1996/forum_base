@@ -33,31 +33,33 @@
                         <a href="http://localhost/klajdi_HAZIRAJ/forum_base/">Accueil</a>
                         <?php
                         if(App\Session::isAdmin()){
-                            ?>
+                             ?>
                             <a href="index.php?ctrl=home&action=users">Voir la liste des gens</a> <!---->
                           
-                            <?php
+                             <?php
                         }
                         ?>
                     </div>
+                    
                     <div id="nav-right">
                     <?php
                         
                         if(App\Session::getUser()){
-                            ?>
-                            <a href="/security/viewProfile.html"><span class="fas fa-user"></span>&nbsp;<?= App\Session::getUser()?></a>
-                            <a href="/security/logout.html">Déconnexion</a>
+                        ?>
+                            <a href="index.php">Accueil</a>
+                                <a href="index.php?ctrl=forum&action=listCategories">Liste des Catégories</a>
+                                <a href="index.php?ctrl=security&action=logout">Déconnexion</a>
                             <?php
                         }
                         else{
                             ?>
                             
-                            <a href="index.php?ctrl=security&action=register/connexionForm">Connexion</a>
-                            <a href="index.php?ctrl=security&action=registerForm">Inscription</a>
-                            <a href="index.php?ctrl=forum&action=listTopics">la liste des topics</a>
-                            <a href="index.php?ctrl=forum&action=listCategories">la liste des categories</a>
-                            <a href="index.php?ctrl=forum&action=listUsers">la liste des Users</a>
-                            <a href="index.php?ctrl=forum&action=listPosts">la liste des Posts</a>
+                             <a href="index.php?ctrl=security&action=register/connexionForm">Connexion</a>
+                             <a href="index.php?ctrl=security&action=registerForm">Inscription</a>
+                             <a href="index.php?ctrl=forum&action=listTopics">la liste des topics</a>
+                             <a href="index.php?ctrl=forum&action=listCategories">la liste des categories</a>
+                             <a href="index.php?ctrl=forum&action=listUsers">la liste des Users</a>
+                             <a href="index.php?ctrl=forum&action=listPosts">la liste des Posts</a>
 
                             
                         <?php

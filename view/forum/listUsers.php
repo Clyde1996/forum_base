@@ -11,8 +11,18 @@ $users = $result["data"]["users"];
 
 foreach($users as $user){
     ?>
-    <?=$user->getUsername(); //-- on recupere UserName depuis entities/user?>
+  
+  
+   
   <?php
+
+
+  if ($user->hasRole("ROLE_USER")) {
+    echo "Date De Inscription D'utilisateur : ".$user->getDateInscription() ." </br> User Role : ". $user->getUsername() .  "  </br>";
+  } 
+  // else{
+  //   echo $user->getUsername(). " ADMIN </br>";
+  // }
 } 
 
 ?>

@@ -55,6 +55,14 @@
                 return $this;
         }
 
+        public function hasRole($role) {
+                if (isset($this->role)) {
+                        return in_array($role, json_decode($this->role)); // function pour le role de utilisateur
+                } else {
+                        return false;
+                }
+        }
+
         public function getRole()
         {
                 return $this->role;
@@ -90,6 +98,19 @@
 
                 return $this;
         }
+
+        // public function setRole($role){
+
+        //     // on indique ici que l'on va récuperer du Json que nous allons récuperer
+        //     $this->role = json_decode($role);
+
+        //     // si il n'y a pas de role attitré
+        //     if(empty($this->$role)){
+
+        //         // on attribut automaitquement le role User
+        //         $this->role[]= "ROLE_USER";
+
+        // }
 
        
     }

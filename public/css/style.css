@@ -11,16 +11,16 @@
 
 
 
- .searchBox {
+ /* .searchBox {
     position: absolute;
-    top: 1%;
+    top: 50%;
     left: 80%;
     background: #2f3640;
     height: 40px;
     border-radius: 40px;
     padding: 10px;
 
-}
+} */
 
 /* .searchBox:hover > .searchInput {
     width: 240px;

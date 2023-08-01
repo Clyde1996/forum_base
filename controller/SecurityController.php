@@ -13,7 +13,7 @@ use Model\Managers\CategoryManager;  // c'est lie avec le Topic Manager dans le 
 class SecurityController extends AbstractController implements ControllerInterface{
 
     public function index(){
-      return connexion();
+      header ("Location: index.php?ctrl=security&action=login");
     }
 
     public function registerForm(){
@@ -58,17 +58,19 @@ class SecurityController extends AbstractController implements ControllerInterfa
                 
 
                 if(($pass1 == $pass2) and strlen($pass1) >= 8){  // on confirme que le $pass1 = $pass2, et le mot de passe ($pass1)  est egal ou superier a 8 caracteres
-                
+                    
+
+
                     //on selection le tableau user dans la base de donees que on puis ajouter un nuveau user 
                     $userManager->add([
                         'email' => $email,
                         'username' => $username,
-                        // 'role' => 
+                        'role' => ['user'] ,
                         'password' => password_hash($pass1, PASSWORD_DEFAULT) // on hash le mot de passe avec son valeur = $pass1  et son filtre = PASSWORD_DEFAULT
                     ]);
 
                     return [
-                        "view" => VIEW_DIR."security/connexion.php",        // Rediriger vers le formulaire d'inscription 
+                        "view" => VIEW_DIR."security/login.php",        // Rediriger vers le formulaire d'inscription 
                         $session->addFlash('success', "Ajouté avec succès") // Afficher un message d'erreu
                     ];
                 }      
@@ -76,6 +78,80 @@ class SecurityController extends AbstractController implements ControllerInterfa
             }
         };
     }
+
+    public function loginForm(){
+        return [
+            "view" => VIEW_DIR . "security/login.php"
+        ];
+    }
+
+    public function login(){
+        
+        if($_POST["submit"]){
+
+            $userManager = new UserManager(); // on se connecte dans la base de donees
+
+            $session = new Session(); // cette variable est pour afficher des messages
+
+            // On filtre les entrées 
+            $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_VALIDATE_EMAIL);
+            $pass1 = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $role = filter_input(INPUT_POST, 'role', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            
+            // on recupere l'email dans la base de donees
+            $user = $userManager->findUserByEmail($email);  
+            
+
+            if($user){
+
+                $password = $user->getPassword();
+                $checkPassword = password_verify($pass1, $password); // on verifie le $pass1 que on a ecrit dans le formulaire correspond à celui de la BDD
+
+                if($checkPassword){
+                    $session->setUser($user); 
+
+                    return[
+                        "view" => VIEW_DIR . "home.php", //
+                        $session->addFlash('success', "Connecté !") // Notification de connexion
+                    ];
+                }      
+            
+            } else {
+                return [
+                    "view" => VIEW_DIR."security/login.php",    // Rester sur le formulaire de connexion
+                    $session->addFlash('error', "Utilisateur inconnu ou mot de passe incorrect") // Notification de refus
+                    ];
+            } 
+            
+        }
+
+        return [
+            "view" => VIEW_DIR."security/login.php" 
+        ];
+    }
+
+
+    public function logout() {
+        $session = new Session();
+        
+        if ($session->getUser() //|| $session->isAdmin()
+        ) {
+            unset($_SESSION['user']); // Détruit la session
+
+            return [
+                "view" => VIEW_DIR."security/login.php",    // Renvoie vers le formulaire de connexion
+                $session->addFlash('success', "Déconnecté avec succès") // Notification 
+            ];
+
+        }
+    }
+
+    
+
+
+
+    
+
 }    
 ?>
 
