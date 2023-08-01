@@ -47,6 +47,7 @@
                         if(App\Session::getUser()){
                         ?>
                             <a href="index.php">Accueil</a>
+                                <a href="index.php?ctrl=forum&action=register/profile">Profile</a>
                                 <a href="index.php?ctrl=forum&action=listCategories">Liste des Catégories</a>
                                 <a href="index.php?ctrl=security&action=logout">Déconnexion</a>
                             <?php
@@ -54,7 +55,7 @@
                         else{
                             ?>
                             
-                             <a href="index.php?ctrl=security&action=register/connexionForm">Connexion</a>
+                             <a href="index.php?ctrl=security&action=connexionForm">Connexion</a>
                              <a href="index.php?ctrl=security&action=registerForm">Inscription</a>
                              <a href="index.php?ctrl=forum&action=listTopics">la liste des topics</a>
                              <a href="index.php?ctrl=forum&action=listCategories">la liste des categories</a>

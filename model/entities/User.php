@@ -56,8 +56,8 @@
         }
 
         public function hasRole($role) {
-                if (isset($this->role)) {
-                        return in_array($role, json_decode($this->role)); // function pour le role de utilisateur
+                if (isset($this->role)) {   // function pour le role de utilisateur
+                        return in_array($role, json_decode($this->role));   // json_decode c'est pour instancer dans la base de donnes le role
                 } else {
                         return false;
                 }

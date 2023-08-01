@@ -65,7 +65,7 @@ class SecurityController extends AbstractController implements ControllerInterfa
                     $userManager->add([
                         'email' => $email,
                         'username' => $username,
-                        'role' => ['user'] ,
+                        'role' => json_encode(["ROLE_USER"]) , // par defaut ca s'ajouter un user apres on peut changer dans la base de donnes si on veut mettre admin
                         'password' => password_hash($pass1, PASSWORD_DEFAULT) // on hash le mot de passe avec son valeur = $pass1  et son filtre = PASSWORD_DEFAULT
                     ]);
 
@@ -73,7 +73,7 @@ class SecurityController extends AbstractController implements ControllerInterfa
                         "view" => VIEW_DIR."security/login.php",        // Rediriger vers le formulaire d'inscription 
                         $session->addFlash('success', "Ajouté avec succès") // Afficher un message d'erreu
                     ];
-                }      
+                }   
                 
             }
         };
@@ -149,10 +149,15 @@ class SecurityController extends AbstractController implements ControllerInterfa
     
 
 
+    public function profile(){
+        $userManager = new UserManager();
 
+        return [
+            "view" => VIEW_DIR . "forum/profile.php"
+        ];
+
+    }
     
 
 }    
 ?>
-
-<h1>test</h1>
